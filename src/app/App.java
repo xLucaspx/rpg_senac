@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Scanner;
+
 import models.Fraqueza;
 import models.Raca;
 import models.equipamento.Arco;
@@ -16,6 +18,7 @@ import models.inimigo.MortoVivo;
 import models.personagem.Barbaro;
 import models.personagem.Druida;
 import models.personagem.Mago;
+import models.personagem.Personagem;
 
 public class App {
 	public static void main(String[] args) {
@@ -56,11 +59,81 @@ public class App {
 		System.out.println(p1.addXp(500) + "\n");
 		System.out.println(p2.addXp(2500) + "\n");
 		System.out.println(p1 + "\n");
+		System.out.println(p1.getEquipamentos() + "\n");
 		System.out.println(p2 + "\n");
+		System.out.println(p2.getEquipamentos() + "\n");
 		System.out.println(p3 + "\n");
+		System.out.println(p3.getEquipamentos() + "\n");
 		System.out.println(i1 + "\n");
 		System.out.println(i2 + "\n");
 		System.out.println(i3 + "\n");
 		System.out.println(i4 + "\n");
+		System.out.println(smallShield + "\n");
+
+		Scanner s = new Scanner(System.in);
+
+		// variáveis escolha:
+		int escolhaPersonagem, escolhaRaca;
+
+		// variáveis personagem:
+		Personagem personagem;
+		Raca raca;
+		String nome;
+
+		// Menu nome
+		System.out.print("Digite o nome do personagem: ");
+		nome = s.nextLine();
+
+		// Menu escolha personagem
+		do {
+			System.out.println("[1] Bárbaro");
+			System.out.println("[2] Druida");
+			System.out.println("[3] Mago");
+			System.out.print("Escolha seu personagem: ");
+			escolhaPersonagem = s.nextInt();
+		} while (escolhaPersonagem < 1 || escolhaPersonagem > 3);
+
+		// Menu escolha raça
+		do {
+			System.out.println("\n[1] " + Raca.ANAO);
+			System.out.println("[2] " + Raca.ELFO);
+			System.out.println("[3] " + Raca.HUMANO);
+			System.out.print("Escolha a raça: ");
+			escolhaRaca = s.nextInt();
+		} while (escolhaRaca < 1 || escolhaRaca > 3);
+
+		// Criação personagem
+		raca = escolheRaca(escolhaRaca);
+		personagem = criaPersonagem(escolhaPersonagem, nome, raca);
+
+		System.out.println("\n" + personagem);
+
+		s.close();
+	}
+
+	static Raca escolheRaca(int codigo) {
+		switch (codigo) {
+			case 1:
+				return Raca.ANAO;
+			case 2:
+				return Raca.ELFO;
+			case 3:
+				return Raca.HUMANO;
+			default:
+				throw new IllegalArgumentException(String.format("Não há raça especificada para o código %d", codigo));
+		}
+	}
+
+	static Personagem criaPersonagem(int codigo, String nome, Raca raca) {
+		switch (codigo) {
+			case 1:
+				return new Barbaro(nome, raca);
+			case 2:
+				return new Druida(nome, raca);
+			case 3:
+				return new Mago(nome, raca);
+			default:
+				throw new IllegalArgumentException(String.format("Não há personagem especificado para o código %d", codigo));
+		}
 	}
 }

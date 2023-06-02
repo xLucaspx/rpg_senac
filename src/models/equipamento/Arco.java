@@ -17,4 +17,10 @@ public class Arco extends Equipamento {
 	public boolean isComposto() {
 		return composto;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Arco %s %s de %s", (this.composto ? "composto" : "inteiro"), this.tamanho,
+				this.getMaterial());
+	}
 }
