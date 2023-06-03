@@ -1,14 +1,22 @@
 package models.personagem;
 
+import static java.util.Map.entry;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import models.Entidade;
 import models.Raca;
 import models.equipamento.Equipamento;
 
 public abstract class Personagem extends Entidade {
+	private static Map<Integer, Classe> classesDisponiveis = Map.ofEntries(entry(1, Classe.BARBARO),
+			entry(2, Classe.DRUIDA), entry(3, Classe.MAGO));
+	private static Map<Integer, Raca> racasDisponiveis = Map.ofEntries(entry(1, Raca.ANAO), entry(2, Raca.ELFO),
+			entry(3, Raca.HUMANO));
+
 	private int xp;
 	private int limiteXp;
 	/*
@@ -20,10 +28,12 @@ public abstract class Personagem extends Entidade {
 	// pontosDeVida: nível * 1.25;
 	// poderDeAtaque: nível * 0.95
 	private List<Equipamento> equipamentos = Arrays.asList(new Equipamento[2]); // até 2 equipamentos por personagem
+	private Classe classe;
 
-	public Personagem(String nome, Raca raca) {
+	public Personagem(String nome, Raca raca, Classe classe) {
 		this.setNome(nome);
 		this.setRaca(raca);
+		this.classe = classe;
 		this.levelUp();
 	}
 
@@ -93,9 +103,21 @@ public abstract class Personagem extends Entidade {
 		return this.equipamentos.remove(index);
 	}
 
+	public Classe getClasse() {
+		return classe;
+	}
+
+	public static Map<Integer, Classe> getClassesDisponiveis() {
+		return Collections.unmodifiableMap(classesDisponiveis);
+	}
+
+	public static Map<Integer, Raca> getRacasDisponiveis() {
+		return Collections.unmodifiableMap(racasDisponiveis);
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%s\nDano: %d\nXP: %d\nLimite XP: %d", super.toString(), this.getDanoAtaque(), this.getXp(),
-				this.getLimiteXp());
+		return String.format("%s\nClasse: %s\nDano: %d\nXP: %d\nLimite XP: %d", super.toString(), this.getClasse(),
+				this.getDanoAtaque(), this.getXp(), this.getLimiteXp());
 	}
 }

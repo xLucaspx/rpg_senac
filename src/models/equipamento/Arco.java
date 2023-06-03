@@ -20,7 +20,7 @@ public class Arco extends Equipamento {
 
 	@Override
 	public String toString() {
-		return String.format("Arco %s %s de %s", (this.composto ? "composto" : "inteiro"), this.tamanho,
+		return String.format("Arco %s %s de %s", (this.composto ? "Composto" : "Inteiro"), this.tamanho,
 				this.getMaterial());
 	}
 }

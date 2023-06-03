@@ -7,7 +7,7 @@ public class Druida extends Personagem {
 	private int carisma;
 
 	public Druida(String nome, Raca raca) {
-		super(nome, raca);
+		super(nome, raca, Classe.DRUIDA);
 	}
 
 	public int getDestreza() {

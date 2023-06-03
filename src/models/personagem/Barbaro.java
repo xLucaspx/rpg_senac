@@ -7,7 +7,7 @@ public class Barbaro extends Personagem {
 	private int vitalidade;
 
 	public Barbaro(String nome, Raca raca) {
-		super(nome, raca);
+		super(nome, raca, Classe.BARBARO);
 	}
 
 	public int getForca() {

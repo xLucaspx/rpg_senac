@@ -7,7 +7,7 @@ public class Mago extends Personagem {
 	private int inteligencia;
 
 	public Mago(String nome, Raca raca) {
-		super(nome, raca);
+		super(nome, raca, Classe.MAGO);
 	}
 
 	public int getEnergia() {

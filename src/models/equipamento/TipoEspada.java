@@ -2,15 +2,16 @@ package models.equipamento;
 
 public enum TipoEspada {
 	// normal e dupla
-	NORMAL(0), DUPLA(1);
+	NORMAL("Normal"), DUPLA("Dupla");
 
-	private int tipoEspada;
+	private String tipoEspada;
 
-	private TipoEspada(int tipoEspada) {
+	private TipoEspada(String tipoEspada) {
 		this.tipoEspada = tipoEspada;
 	}
 
-	public int getTipoEscudo() {
-		return tipoEspada;
+	@Override
+	public String toString() {
+		return this.tipoEspada;
 	}
 }

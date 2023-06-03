@@ -2,15 +2,16 @@ package models.equipamento;
 
 public enum TipoEscudo {
 	// leve e pesado
-	LEVE(0), PESADO(1);
+	LEVE("Leve"), PESADO("Pesado");
 
-	private int tipoEscudo;
+	private String tipoEscudo;
 
-	private TipoEscudo(int tipoEscudo) {
+	private TipoEscudo(String tipoEscudo) {
 		this.tipoEscudo = tipoEscudo;
 	}
 
-	public int getTipoEscudo() {
-		return tipoEscudo;
+	@Override
+	public String toString() {
+		return this.tipoEscudo;
 	}
 }
