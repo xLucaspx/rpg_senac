@@ -11,38 +11,31 @@ import models.personagem.Mago;
 import models.personagem.Personagem;
 
 public class MenuPersonagem extends Menu {
-	private Scanner s;
 	private HashMap<Integer, Object> mapClasses = new HashMap<>(Personagem.getClassesDisponiveis());
 	private HashMap<Integer, Object> mapRacas = new HashMap<>(Personagem.getRacasDisponiveis());
 
-	public MenuPersonagem() {
-		this.s = new Scanner(System.in);
-	}
-
-	public Personagem criaPersonagem() {
-		Raca raca = escolheRaca();
-		Classe classe = escolheClasse();
-		String nome = escolheNome();
-
-		s.close();
+	public Personagem criaPersonagem(Scanner s) {
+		Raca raca = escolheRaca(s);
+		Classe classe = escolheClasse(s);
+		String nome = escolheNome(s);
 
 		switch (classe) {
-		case BARBARO -> {
-			return new Barbaro(nome, raca);
-		}
-		case DRUIDA -> {
-			return new Druida(nome, raca);
-		}
-		case MAGO -> {
-			return new Mago(nome, raca);
-		}
-		default -> {
-			throw new IllegalArgumentException("Ocorreu um erro ao tentar instanciar a classe " + classe);
-		}
+			case BARBARO -> {
+				return new Barbaro(nome, raca);
+			}
+			case DRUIDA -> {
+				return new Druida(nome, raca);
+			}
+			case MAGO -> {
+				return new Mago(nome, raca);
+			}
+			default -> {
+				throw new IllegalArgumentException("Ocorreu um erro ao tentar instanciar a classe " + classe);
+			}
 		}
 	}
 
-	private Classe escolheClasse() {
+	private Classe escolheClasse(Scanner s) {
 		int codigo;
 		boolean escolhaInvalida;
 
@@ -68,7 +61,7 @@ public class MenuPersonagem extends Menu {
 	}
 
 	@Override
-	protected Raca escolheRaca() {
+	protected Raca escolheRaca(Scanner s) {
 		int codigo;
 		boolean escolhaInvalida;
 
@@ -94,7 +87,7 @@ public class MenuPersonagem extends Menu {
 	}
 
 	@Override
-	protected String escolheNome() {
+	protected String escolheNome(Scanner s) {
 		System.out.print("\nDigite o nome do personagem: ");
 		String nome = s.nextLine();
 

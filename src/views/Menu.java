@@ -1,14 +1,15 @@
 package views;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 import models.Raca;
 
 public abstract class Menu {
 
-	protected abstract Raca escolheRaca();
+	protected abstract Raca escolheRaca(Scanner s);
 
-	protected abstract String escolheNome();
+	protected abstract String escolheNome(Scanner s);
 
 	protected void criaMenu(HashMap<Integer, Object> params) {
 		System.out.println(); // quebra de linha!
