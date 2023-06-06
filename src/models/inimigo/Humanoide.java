@@ -1,27 +1,35 @@
 package models.inimigo;
 
+import static java.util.Map.entry;
+
+import java.util.Collections;
+import java.util.Map;
+
 import models.Raca;
 import models.equipamento.Equipamento;
+import models.personagem.Classe;
 
 public class Humanoide extends Inimigo {
-	// raça: goblin, kobold, bugbear
+	private static Map<Integer, Raca> racasDisponiveis = Map.ofEntries(entry(1, Raca.GOBLIN), entry(2, Raca.KOBOLD),
+			entry(3, Raca.BUGBEAR));
+
 	private boolean rangedAttack;
 	private Equipamento equipamento; // apenas 1 dos equipamentos disponíveis
 
 	public Humanoide(String nome, int nivel, int rewardXp, Raca raca, boolean rangedAttack) {
-		super(nome, nivel, rewardXp);
+		super(nome, nivel, rewardXp, Classe.HUMANOIDE);
 		this.setRaca(raca);
 		this.rangedAttack = rangedAttack;
 	}
 
 	@Override
 	public void setRaca(Raca raca) {
-		if (raca.equals(Raca.GOBLIN) || raca.equals(Raca.KOBOLD) || raca.equals(Raca.BUGBEAR)) {
+		if (racasDisponiveis.containsValue(raca)) {
 			super.setRaca(raca);
 			return;
 		}
 		throw new IllegalArgumentException(
-				String.format("As raças permitidas para Humanoide são: %s, %s e %s", Raca.GOBLIN, Raca.KOBOLD, Raca.BUGBEAR));
+				String.format("As raças permitidas para Humanoide são: %s", racasDisponiveis.values()));
 	}
 
 	public Equipamento getEquipamento() {
@@ -34,6 +42,10 @@ public class Humanoide extends Inimigo {
 
 	public boolean hasRangedAttack() {
 		return this.rangedAttack;
+	}
+
+	public static Map<Integer, Raca> getRacasDisponiveis() {
+		return Collections.unmodifiableMap(racasDisponiveis);
 	}
 
 	@Override

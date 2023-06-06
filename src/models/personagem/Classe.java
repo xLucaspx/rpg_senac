@@ -1,7 +1,8 @@
 package models.personagem;
 
 public enum Classe {
-	BARBARO("Bárbaro"), DRUIDA("Druida"), MAGO("Mago");
+	BARBARO("Bárbaro"), DRUIDA("Druida"), MAGO("Mago"), ANIMAL("Animal"), MONSTRO("Monstro"), HUMANOIDE("Humanoide"),
+	MORTO_VIVO("Morto-vivo");
 
 	private String classe;
 

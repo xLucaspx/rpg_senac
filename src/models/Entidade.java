@@ -1,13 +1,18 @@
 package models;
 
+import models.personagem.Classe;
+
 public abstract class Entidade {
 	private int nivel;
 	private String nome;
 	private Raca raca;
+	private Classe classe;
 	private int hp;
 	private int danoAtaque;
 
-	public Entidade() {
+	public Entidade(String nome, Classe classe) {
+		this.nome = nome;
+		this.classe = classe;
 	}
 
 	public int getNivel() {
@@ -32,6 +37,10 @@ public abstract class Entidade {
 
 	protected void setRaca(Raca raca) {
 		this.raca = raca;
+	}
+
+	public Classe getClasse() {
+		return classe;
 	}
 
 	public int getHp() {

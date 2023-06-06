@@ -1,7 +1,6 @@
 package models;
 
 public enum Fraqueza {
-	// luz, fogo, gelo
 	LUZ("Luz"), FOGO("Fogo"), GELO("Gelo");
 
 	private String fraqueza;

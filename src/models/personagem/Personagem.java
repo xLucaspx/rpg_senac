@@ -28,12 +28,10 @@ public abstract class Personagem extends Entidade {
 	// pontosDeVida: nível * 1.25;
 	// poderDeAtaque: nível * 0.95
 	private List<Equipamento> equipamentos = Arrays.asList(new Equipamento[2]); // até 2 equipamentos por personagem
-	private Classe classe;
 
 	public Personagem(String nome, Raca raca, Classe classe) {
-		this.setNome(nome);
+		super(nome, classe);
 		this.setRaca(raca);
-		this.classe = classe;
 		this.levelUp();
 	}
 
@@ -101,10 +99,6 @@ public abstract class Personagem extends Entidade {
 
 	public Equipamento removeEquipamento(int index) {
 		return this.equipamentos.remove(index);
-	}
-
-	public Classe getClasse() {
-		return classe;
 	}
 
 	public static Map<Integer, Classe> getClassesDisponiveis() {

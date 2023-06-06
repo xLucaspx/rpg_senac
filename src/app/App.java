@@ -2,7 +2,9 @@ package app;
 
 import java.util.Scanner;
 
+import models.inimigo.Inimigo;
 import models.personagem.Personagem;
+import views.MenuInimigo;
 import views.MenuPersonagem;
 
 public class App {
@@ -10,7 +12,10 @@ public class App {
 		Scanner s = new Scanner(System.in);
 
 		Personagem p = new MenuPersonagem().criaPersonagem(s);
+		Inimigo i1 = new MenuInimigo().criaInimigo(s);
+
 		System.out.println("\n" + p);
+		System.out.println("\n" + i1);
 
 		s.close();
 		// Escudo smallShield = new Escudo(Material.MADEIRA, TipoEscudo.LEVE);

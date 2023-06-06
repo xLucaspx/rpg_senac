@@ -11,12 +11,12 @@ import models.personagem.Mago;
 import models.personagem.Personagem;
 
 public class MenuPersonagem extends Menu {
-	private HashMap<Integer, Object> mapClasses = new HashMap<>(Personagem.getClassesDisponiveis());
-	private HashMap<Integer, Object> mapRacas = new HashMap<>(Personagem.getRacasDisponiveis());
+	private HashMap<Integer, Classe> mapClasses = new HashMap<>(Personagem.getClassesDisponiveis());
+	private HashMap<Integer, Raca> mapRacas = new HashMap<>(Personagem.getRacasDisponiveis());
 
 	public Personagem criaPersonagem(Scanner s) {
-		Raca raca = escolheRaca(s);
 		Classe classe = escolheClasse(s);
+		Raca raca = escolheRaca(s, classe);
 		String nome = escolheNome(s);
 
 		switch (classe) {
@@ -30,18 +30,19 @@ public class MenuPersonagem extends Menu {
 				return new Mago(nome, raca);
 			}
 			default -> {
-				throw new IllegalArgumentException("Ocorreu um erro ao tentar instanciar a classe " + classe);
+				throw new IllegalArgumentException("Classe inválida para personagem: " + classe);
 			}
 		}
 	}
 
-	private Classe escolheClasse(Scanner s) {
+	@Override
+	protected Classe escolheClasse(Scanner s) {
 		int codigo;
 		boolean escolhaInvalida;
 
 		do {
 			this.criaMenu(this.mapClasses);
-			System.out.print("Escolha a classe: ");
+			System.out.print("Escolha a classe do personagem: ");
 
 			try {
 				codigo = Integer.parseInt(s.nextLine());
@@ -57,17 +58,17 @@ public class MenuPersonagem extends Menu {
 			}
 		} while (escolhaInvalida);
 
-		return (Classe) mapClasses.get(codigo);
+		return mapClasses.get(codigo);
 	}
 
 	@Override
-	protected Raca escolheRaca(Scanner s) {
+	protected Raca escolheRaca(Scanner s, Classe c) {
 		int codigo;
 		boolean escolhaInvalida;
 
 		do {
 			this.criaMenu(this.mapRacas);
-			System.out.print("Escolha a raça: ");
+			System.out.print("Escolha a raça do personagem: ");
 
 			try {
 				codigo = Integer.parseInt(s.nextLine());
@@ -83,14 +84,17 @@ public class MenuPersonagem extends Menu {
 			}
 		} while (escolhaInvalida);
 
-		return (Raca) this.mapRacas.get(codigo);
+		return this.mapRacas.get(codigo);
 	}
 
 	@Override
 	protected String escolheNome(Scanner s) {
-		System.out.print("\nDigite o nome do personagem: ");
-		String nome = s.nextLine();
+		String nome;
+		do {
+			System.out.print("\nDigite o nome do personagem: ");
+			nome = s.nextLine();
+		} while (nome.isBlank() || nome.isBlank());
 
-		return nome;
+		return nome.trim();
 	}
 }
