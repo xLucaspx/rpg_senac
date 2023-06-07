@@ -3,16 +3,7 @@ package views;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import models.Raca;
-import models.personagem.Classe;
-
-public abstract class Menu {
-
-	protected abstract Classe escolheClasse(Scanner s);
-
-	protected abstract Raca escolheRaca(Scanner s, Classe c);
-
-	protected abstract String escolheNome(Scanner s);
+abstract class Menu {
 
 	protected boolean escolheBoolean(Scanner s, String mensagem) {
 		int codigo;
@@ -20,7 +11,7 @@ public abstract class Menu {
 
 		do {
 			System.out.println("\n[1] Sim\n[2] Não");
-			System.out.println(mensagem);
+			System.out.print(mensagem);
 
 			try {
 				codigo = Integer.parseInt(s.nextLine());

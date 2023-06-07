@@ -10,7 +10,7 @@ import models.personagem.Druida;
 import models.personagem.Mago;
 import models.personagem.Personagem;
 
-public class MenuPersonagem extends Menu {
+class MenuPersonagem extends MenuEntidade {
 	private HashMap<Integer, Classe> mapClasses = new HashMap<>(Personagem.getClassesDisponiveis());
 	private HashMap<Integer, Raca> mapRacas = new HashMap<>(Personagem.getRacasDisponiveis());
 

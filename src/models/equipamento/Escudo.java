@@ -4,7 +4,7 @@ public class Escudo extends Equipamento {
 	private TipoEscudo tipo;
 
 	public Escudo(Material material, TipoEscudo tipo) {
-		super(material);
+		super(material, TipoEquipamento.ESCUDO);
 		this.tipo = tipo;
 	}
 

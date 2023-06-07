@@ -5,7 +5,7 @@ public class Espada extends Equipamento {
 	private TipoEspada tipo;
 
 	public Espada(Material material, Tamanho tamanho, TipoEspada tipo) {
-		super(material);
+		super(material, TipoEquipamento.ESPADA);
 		this.tamanho = tamanho;
 		this.tipo = tipo;
 	}

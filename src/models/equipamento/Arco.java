@@ -5,7 +5,7 @@ public class Arco extends Equipamento {
 	private boolean composto;
 
 	public Arco(Material material, Tamanho tamanho, boolean composto) {
-		super(material);
+		super(material, TipoEquipamento.ARCO);
 		this.tamanho = tamanho;
 		this.composto = composto;
 	}

@@ -16,6 +16,8 @@ public abstract class Personagem extends Entidade {
 			entry(2, Classe.DRUIDA), entry(3, Classe.MAGO));
 	private static Map<Integer, Raca> racasDisponiveis = Map.ofEntries(entry(1, Raca.ANAO), entry(2, Raca.ELFO),
 			entry(3, Raca.HUMANO));
+	
+	private static int nivelMinimo = 0;
 
 	private int xp;
 	private int limiteXp;
@@ -46,6 +48,10 @@ public abstract class Personagem extends Entidade {
 		this.setHp(hp > 0 ? hp : 1);
 		this.setDanoAtaque(dano > 0 ? dano : 1);
 
+		if (newLevel > Personagem.nivelMinimo) {
+			setNivelMinimo(newLevel);
+		}
+		
 		return newLevel;
 	}
 
@@ -107,6 +113,14 @@ public abstract class Personagem extends Entidade {
 
 	public static Map<Integer, Raca> getRacasDisponiveis() {
 		return Collections.unmodifiableMap(racasDisponiveis);
+	}
+	
+	public static int getNivelMinimo() {
+		return nivelMinimo;
+	}
+	
+	private static void setNivelMinimo(int nivelMinimo) {
+		Personagem.nivelMinimo = nivelMinimo;
 	}
 
 	@Override

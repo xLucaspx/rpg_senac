@@ -14,8 +14,9 @@ import models.inimigo.Inimigo;
 import models.inimigo.Monstro;
 import models.inimigo.MortoVivo;
 import models.personagem.Classe;
+import models.personagem.Personagem;
 
-public class MenuInimigo extends Menu {
+class MenuInimigo extends MenuEntidade {
 	private HashMap<Integer, Classe> mapClasses = new HashMap<>(Inimigo.getClassesDisponiveis());
 	private HashMap<Integer, Raca> mapRacasAnimal = new HashMap<>(Animal.getRacasDisponiveis());
 	private HashMap<Integer, Raca> mapRacasMonstro = new HashMap<>(Monstro.getRacasDisponiveis());
@@ -135,20 +136,23 @@ public class MenuInimigo extends Menu {
 
 	private int escolheNivel(Scanner s, String nome) {
 		int nivel;
+		int nivelMaximo = (Personagem.getNivelMinimo() > 0 ? (Personagem.getNivelMinimo() * 2) : 1);
 		boolean escolhaInvalida = false;
+		
 
 		do {
 			System.out.print(String.format("\nDigite o nível de %s: ", nome));
 
 			try {
 				nivel = Integer.parseInt(s.nextLine());
-				// escolhaInvalida = nivel > (nivel * 10);
-				escolhaInvalida = nivel < 1;
+				 escolhaInvalida = (nivel > nivelMaximo || nivel < 1);
 
-				// if (escolhaInvalida)
-				// throw new IllegalArgumentException("A recompensa não pode ser maior que 10x o
-				// nível do inimigo!");
-
+				 if (escolhaInvalida)
+						throw new IllegalArgumentException(
+								"O nível de um inimigo não pode ser menor que 1 ou maior que 2x o nível do personagem mais forte; " +
+								"caso nenhum personagem tenha sido criado, o nível do inimigo deve ser 1.\nValor máximo permitido: "
+								+ nivelMaximo);
+				 
 			} catch (Exception e) {
 				escolhaInvalida = true;
 				nivel = 1;
@@ -171,12 +175,13 @@ public class MenuInimigo extends Menu {
 				escolhaInvalida = rewardXp > (nivel * 10) || rewardXp < 1;
 
 				if (escolhaInvalida)
-					throw new IllegalArgumentException("A recompensa não pode ser maior que 10x o nível do inimigo!");
+					throw new IllegalArgumentException("A recompensa não pode ser menor que 1 ou maior que 10x o nível do inimigo!\nValor máximo permitido: "
+							+ (nivel * 10));
 
 			} catch (Exception e) {
 				escolhaInvalida = true;
 				rewardXp = nivel * 10;
-				System.out.println("Valor inválido: " + e.getMessage() + "\nVocê deve inserir um valor inteiro!");
+				System.out.println("Valor inválido: " + e.getMessage());
 			}
 		} while (escolhaInvalida);
 
