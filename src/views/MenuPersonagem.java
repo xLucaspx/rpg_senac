@@ -18,21 +18,69 @@ class MenuPersonagem extends MenuEntidade {
 		Classe classe = escolheClasse(s);
 		Raca raca = escolheRaca(s, classe);
 		String nome = escolheNome(s);
+		
+		int pontosDisponiveis = 30;
+		int valorAtributo;
 
 		switch (classe) {
 			case BARBARO -> {
-				return new Barbaro(nome, raca);
+				Barbaro b = new Barbaro(nome, raca);
+				
+				valorAtributo = defineAtributo(s, "Força", pontosDisponiveis);
+				b.setForca(valorAtributo);
+				pontosDisponiveis -= valorAtributo;
+				b.setVitalidade(defineAtributo(s, "Vitalidade", pontosDisponiveis));
+				
+				return b;
 			}
 			case DRUIDA -> {
-				return new Druida(nome, raca);
+				Druida d = new Druida(nome, raca);
+				
+				valorAtributo = defineAtributo(s, "Destreza", pontosDisponiveis);
+				d.setDestreza(valorAtributo);
+				pontosDisponiveis -= valorAtributo;
+				d.setCarisma(defineAtributo(s, "Carisma", pontosDisponiveis));
+				
+				return d;
 			}
 			case MAGO -> {
-				return new Mago(nome, raca);
+				Mago m = new Mago(nome, raca);
+				
+				valorAtributo = defineAtributo(s, "Energia", pontosDisponiveis);
+				m.setEnergia(valorAtributo);
+				pontosDisponiveis -= valorAtributo;
+				m.setInteligencia(defineAtributo(s, "Inteligência", pontosDisponiveis));
+				
+				return m;
 			}
 			default -> {
 				throw new IllegalArgumentException("Classe inválida para personagem: " + classe);
 			}
 		}
+	}
+	
+	private int defineAtributo(Scanner s, String atributo, int pontosDisponiveis) {
+		int valor;
+		boolean escolhaInvalida;
+		
+		do {
+			System.out.print(String.format("\nPontos disponíveis: %d\nQuantos pontos você quer atribuir para %s? ", pontosDisponiveis, atributo));
+			
+			try {
+				valor = Integer.parseInt(s.nextLine());
+				escolhaInvalida = (valor < 1 || valor > pontosDisponiveis);
+				
+				if (escolhaInvalida)
+					throw new IllegalArgumentException("O valor deve estar entre 1 e " + pontosDisponiveis);
+				
+			} catch (Exception e) {
+				valor = 0;
+				escolhaInvalida = true;
+				System.out.println("Valor inválido: " + e.getMessage());
+			}
+		} while (escolhaInvalida);
+		
+		return valor;
 	}
 
 	@Override
